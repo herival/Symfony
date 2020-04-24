@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Artist;
 use App\Repository\ArtistRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,20 +47,31 @@ class ArtistController extends AbstractController
 // créer une route "artist/jouter/beyounce => ça va ajouter dans la BDD un artiste beyonce, et ensuite redirection vers la route artiste"
 
     /**
-     * @Route("/artist/ajouter", name="artist_nouveau")
+     * @Route("/artist/ajouter", name="artist_nouveau", methods={"GET", "POST"})
      */
-    public function ajouter(EntityManager $em)
+    public function ajouter(EntityManager $em, Request $request)
     {
+        
+        
+        if ($request->isMethod('POST')){
+            $data = $request->request->all();
+            // $data = $request->query->all(); // si type GET
+            // voir le parameterBag pour d'autres methodes
+            // ex : request-request->get("nom");
+            
+            $artiste = new Artist;
+            $artiste->setName($data['nom']);
+            $artiste->setDescription($data['description']);
 
-        $artiste = new Artist;
-        $artiste->setName($name);
-        $artiste->setDescription("");
+            $em->persist($artiste);
+            $em->flush();
+        
+            return $this->redirectToRoute("artist"); 
+        }
+        
 
-        $em->persist($artiste);
 
-        $em->flush();
  
-        return $this->redirectToRoute("artist"); 
     }
 
 
