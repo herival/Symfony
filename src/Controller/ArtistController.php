@@ -26,13 +26,13 @@ class ArtistController extends AbstractController
     }
 
     /**
-     * @Route("/artist/nouveau", name="artist_nouveau")
+     * @Route("/artist/nouveau/{name}", name="artist_nouveau")
      */
-    public function nouveau(EntityManager $em) //c'est comme instanciation et créer un objet $em 
+    public function nouveau(EntityManager $em, $name) //c'est comme instanciation et créer un objet $em 
     {
        $artiste = new Artist;
-       $artiste->setName("Celine Dion");
-       $artiste->setDescription("Diva talentuese!");
+       $artiste->setName("Jimmy Hendrix");
+       $artiste->setDescription("Guitariste de legende");
        // la methode "persist" de l'objet $em permet l'insertion ou la modification en BDD
        $em->persist($artiste);
         // pour exécuter les requêtes insertion ou modification en attente, il faut executer la methode "flush de l'objet $em
@@ -44,5 +44,21 @@ class ArtistController extends AbstractController
 
 
 // créer une route "artist/jouter/beyounce => ça va ajouter dans la BDD un artiste beyonce, et ensuite redirection vers la route artiste"
+
+    /**
+     * @Route("/artist/ajouter/{name}", name="artist_nouveau")
+     */
+    public function ajouterNom(EntityManager $em, $name)
+    {
+        $artiste = new Artist;
+        $artiste->setName($name);
+        $artiste->setDescription("");
+
+        $em->persist($artiste);
+
+        $em->flush();
+ 
+        return $this->redirectToRoute("artist"); 
+    }
 
 }
