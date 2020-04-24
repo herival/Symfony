@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArtistController!{% endblock %}
+
+{% block body %}
+    <h1 class="display-4 text-center">LISTE DES ARTISTES</h1>
+    <table class="table text-center table-bordered" >
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">description</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for artiste in liste_artistes %}
+            <tr>
+                <td> {{ artiste.id }} </td>
+                <td> {{ artiste.name }} </td>
+                <td> {{ artiste.description }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    <table>
+
+{% endblock %}

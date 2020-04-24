@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{# {{ test }} = echo "test"; #}
+{# nom des variable : juste le nom sans $  #}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Symfony 4</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/">Acceuil</a>
+            <a class="nav-item nav-link" href="/calcul2/15">Calcul</a>
+            <a class="nav-item nav-link" href="/artist">Artist</a>
+            </div>
+        </div>
+        </nav>
+    <div class="container" style="min-height:80vh;">
+
+{% block body %}
+        <h1 class="display-4 text-center">Acceuil</h1>
+        {# commentaire #}
+        {# la seule structure conditionnelle est le if #}
+        {# les operateurs logiques sont and or en minuscule #}
+        {% if variable > 2 %}
+            {# les variables s'écrivent sans le $  #}
+            {# les doubles {{}} sont équivalent à echo  #}
+            {{ variable }} est supérieur à 2
+        {% else %}
+            {{ variable }} est invéfirieur à 2
+        {% endif %}
+
+        <hr>        
+        <h2 class="text-center">Boucle For</h2>
+        {# boucle for  #}
+        {% for ligne in tableau %}
+            <p> {{ ligne }} </p>
+        {% endfor %}
+        <hr>    
+
+        <h2 class="text-center">Boucle For avec indice</h2>
+        {# en php:  foreach($tableau as $indice => ligne){ }  #}
+        {% for indice, ligne in tableau %}
+            {# concatenation #}
+            <p> {{ indice ~ ":" ~ ligne }} </p>
+        {% endfor %}
+        <hr> 
+        <h2 class="text-center">Boucle For avec condition</h2>
+        {# en php: for ($i=0; $i<10 ; $i++)  #}
+        {% for i in 0..9 %}
+        {# {% for i in "a".."z" %} #}
+            {# concatenation #}
+         {{ i }} - 
+        {% endfor %}
+        <br> 
+    
+        {% for i in "a".."z" %}
+            {# concatenation #}
+         {{ i }} - 
+        {% endfor %}
+        
+        <hr>
+        <h2 class="text-center"> Tableau associatif </h2>
+        {# on peut ecrire {{ tableau_associatif.nom }} #}
+        <ul>
+            <li>Nom: {{ tableau_associatif["nom"] }}</li>
+            <li>Prénom : {{ tableau_associatif["prénom"] }} </li>
+            <li>Age: {{ tableau_associatif["age"] }}</li>
+        </ul>
+        <hr>
+         <ul>
+            <li>Nom: {{ objet.nom }}</li>
+            <li>Prénom : {{ objet.prenom }} </li>
+            <li>Age: {{ objet.age }}</li>
+        </ul>       
+        
+{% endblock %}
+
+        {% block javascripts %}{% endblock %}
+    </div>
+
+
+<footer style="min-height : 15vh;" class="bg-dark text-white text-center h-25">Footer</footer>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>

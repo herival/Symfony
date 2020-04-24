@@ -1,0 +1,18 @@
+{# la vue calcul.html.twig hérite de base.html.twig  #}
+{% extends "base.html.twig" %}
+
+{# le contenu du block body de cette vue va remplaer le contenu du block body de la vue parente #}
+{% block body %}
+
+<h2 class="display-4 text-center">CALCUL</h2>
+
+<p>Le nombre est {{ nombre }} </p>
+<p> {{ nombre }} *2 = {{ nombre * 2 }} </p>
+
+{% block message %}{% endblock %}
+
+{% endblock %}
+
+{% block title %}CALCUL{% endblock %}
+
+
