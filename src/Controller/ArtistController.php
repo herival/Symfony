@@ -46,10 +46,11 @@ class ArtistController extends AbstractController
 // créer une route "artist/jouter/beyounce => ça va ajouter dans la BDD un artiste beyonce, et ensuite redirection vers la route artiste"
 
     /**
-     * @Route("/artist/ajouter/{name}", name="artist_nouveau")
+     * @Route("/artist/ajouter", name="artist_nouveau")
      */
-    public function ajouterNom(EntityManager $em, $name)
+    public function ajouter(EntityManager $em)
     {
+
         $artiste = new Artist;
         $artiste->setName($name);
         $artiste->setDescription("");
@@ -60,5 +61,7 @@ class ArtistController extends AbstractController
  
         return $this->redirectToRoute("artist"); 
     }
+
+
 
 }
