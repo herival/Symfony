@@ -102,6 +102,18 @@ class ArtistController extends AbstractController
  
     }
 
+    /**
+     * @Route("/artist/supprimer/{id}", name="supprimer_artiste")
+     */
+    public function supprimerArtiste(Artist $artist){
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($artist);
+        $em->flush();
+
+        return $this->redirectToRoute("artist");
+    }
+
 
 
 }
