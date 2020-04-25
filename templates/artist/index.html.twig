@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1 class="display-4 text-center">LISTE DES ARTISTES</h1>
+    <a class="btn btn-info mb-1" href="{{ path('artist_nouveau') }}">Ajouter artiste</a>
     <table class="table text-center table-bordered" >
         <thead class="thead-dark">
             <tr>
@@ -23,17 +24,19 @@
         </tbody>
     </table>
 
-    <form action="/artist/ajouter" method="POST">
+    {# au lieu de mettre directement l'url en dur comme "/artist/ajouter" ici vaut mieux utiliser les nom des routes dispbonible dans bin/console debug:router #}
+    <form action="{{ path('artist_nouveau') }}" method="POST">
         <div class="form-group">
             <label for="nom">Nom</label>
             <input type="text" class="form-control" id="nom" name="nom"  placeholder="Enter nom">
         </div>
         <div class="form-group">
             <label for="Description">Description</label>
-            <textarea type="password" name="description" class="form-control" id="description" placeholder="description"></textarea>
+            <textarea type="text" name="description" class="form-control" id="description" placeholder="description"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button type="submit" class="btn btn-primary mb-2">Enregistrer</button>
     </form>
+
     
 {% endblock %}
 

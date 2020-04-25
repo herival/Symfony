@@ -6,7 +6,10 @@ use App\Entity\Artist;
 use App\Repository\ArtistRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -53,23 +56,48 @@ class ArtistController extends AbstractController
     {
         
         
-        if ($request->isMethod('POST')){
-            $data = $request->request->all();
-            // $data = $request->query->all(); // si type GET
-            // voir le parameterBag pour d'autres methodes
-            // ex : request-request->get("nom");
+        // if ($request->isMethod('POST')){
+        //     $data = $request->request->all();
+        //     // $data = $request->query->all(); // si type GET
+        //     // voir le parameterBag pour d'autres methodes
+        //     // ex : request-request->get("nom");
             
-            $artiste = new Artist;
-            $artiste->setName($data['nom']);
-            $artiste->setDescription($data['description']);
+        //     $artiste = new Artist;
+        //     $artiste->setName($data['nom']);
+        //     $artiste->setDescription($data['description']);
 
+        //     $em->persist($artiste);
+        //     $em->flush();
+        
+        //     return $this->redirectToRoute("artist"); 
+        // }
+        
+        $form = $this->createFormBuilder()
+        //les types de champs du formulaire spécifique à symfony
+            ->add('name', TextType::class, ['label' => 'Nom', 'attr' => ['class'=> "form-control"]])
+            ->add('description', TextareaType::class, ['attr' => ['class'=> "form-control"]])
+            ->getForm()
+        ;
+        // dd($form);
+        $form->handleRequest($request); //gere le type form automatiquement
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+        
+            $artiste = new Artist;
+            $artiste->setName($data['name']);
+            $artiste->setDescription($data['description']);
             $em->persist($artiste);
             $em->flush();
-        
-            return $this->redirectToRoute("artist"); 
-        }
-        
 
+            return $this->redirectToRoute("artist"); 
+
+            
+        }
+
+        return $this->render('artist/create.html.twig', [
+            'ajoutForm' => $form->createView()
+        ]);
 
  
     }
