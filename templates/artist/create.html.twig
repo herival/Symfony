@@ -4,13 +4,27 @@
 {% block body %} 
 
     <h1 class="display-4 text-center">AJOUTER UN ARTISTE</h1>
+    {# <p class="alert alert-info text-center">Methode avec formBuidler</p> #}
 
     {{ form_start(ajoutForm) }}
         {{ form_widget(ajoutForm) }}
         <button type="submit" class="btn btn-success mt-1">Enregistrer</button>
+        <a href="{{ path('artist') }}" class="btn btn-danger mt-1">Annuler</a>
     {{ form_end(ajoutForm) }}
 
+    {# <p class="alert alert-info text-center mb-1">Methode formulaire manuel</p>
+    <form method="POST">
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="name" required name="name">
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea type="text" class="form-control" id="Description"></textarea>
+        </div>
 
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form> #}
 
 
 {% endblock %}

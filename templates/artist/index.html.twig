@@ -3,15 +3,28 @@
 {% block title %}ARTISTES{% endblock %}
 
 {% block body %}
-    <h1 class="display-4 text-center">LISTE DES ARTISTES</h1>
-    <a class="btn btn-info mb-1" href="{{ path('artist_nouveau') }}" >Ajouter artiste</a>
+    <h1 class="display-4 text-center" suppr >Liste des Artistes</h1>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-danger text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('alert') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <a class="btn btn-info mb-1"  href="{{ path('artist_nouveau') }}" ><i class="fa fa-plus"></i>  Ajouter artiste</a>
     <table class="table text-center table-bordered" >
-        <thead class="thead-dark">
+        <thead class="thead-dark text-uppercase">
             <tr>
                 <th scope="col" style="width:5%;">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col" style="width:50%;">description</th>
-                <th scope="col" style="width:10%;">Supprimer</th>
+                <th scope="col" style="width:7%;">Voir</th>
+                <th scope="col" style="width:7%;">Edit</th>
+                <th scope="col" style="width:7%;">Suppr</th>
             </tr>
         </thead>
         <tbody>
@@ -20,24 +33,15 @@
                 <td> {{ artiste.id }} </td>
                 <td> {{ artiste.name }} </td>
                 <td> {{ artiste.description }} </td>
-                <td> <a class="text-danger" href="/artist/supprimer/{{artiste.id}}"><i class="fa fa-trash"></i></a> </td>
+                <td> <a class="text-primary" href="{{ path('single', {'id':artiste.id}) }}"><i class=" fa fa-eye"></i></a> </td>
+                <td> <a class="text-primary" href="{{ path('modifier_artist', {'id':artiste.id}) }}"><i class="fa fa-edit"></i></a> </td>
+                <td> <a class="text-danger" onclick="return confirm('Voulez-vous supprimer cet artiste?')" href="/artist/supprimer/{{artiste.id}}"><i class="fa fa-trash"></i></a> </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     {# au lieu de mettre directement l'url en dur comme "/artist/ajouter" ici vaut mieux utiliser les nom des routes dispbonible dans bin/console debug:router #}
-    <form action="{{ path('artist_nouveau') }}" method="POST">
-        <div class="form-group">
-            <label for="nom">Nom</label>
-            <input type="text" class="form-control" id="nom" name="nom"  placeholder="Enter nom">
-        </div>
-        <div class="form-group">
-            <label for="Description">Description</label>
-            <textarea type="text" name="description" class="form-control" id="description" placeholder="description"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Enregistrer</button>
-    </form>
 
     
 {% endblock %}

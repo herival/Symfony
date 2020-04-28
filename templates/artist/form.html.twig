@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ titre }}{% endblock %}
+
+{% block body %}
+
+{% if titre is defined %}
+<h2 class="display-4 text-center">{{ titre }} </h2>
+{% else %}
+<h2 class="display-4 text-center">Formulaire</h2>  
+{% endif %}
+
+{{ form_start(form) }}
+    
+    
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-success">{{ bouton }}</button>
+    <a href="{{ path('artist') }}" class="btn btn-danger">Annuler</a>
+    
+{{ form_end(form) }}
+
+
+{% endblock %}

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Artist;
+use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
+use App\Repository\RecordRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -90,14 +92,17 @@ class ArtistController extends AbstractController
             $em->persist($artiste);
             $em->flush();
 
+            $nom = $data['name'];
+            $this->addFlash('alert', "L'artiste \"$nom\" a bien été ajouté!");
+
             return $this->redirectToRoute("artist"); 
 
             
         }
 
-        return $this->render('artist/create.html.twig', [
-            'ajoutForm' => $form->createView()
-        ]);
+        return $this->render('artist/create.html.twig', 
+        ['ajoutForm' => $form->createView()]
+        );
 
  
     }
@@ -105,14 +110,88 @@ class ArtistController extends AbstractController
     /**
      * @Route("/artist/supprimer/{id}", name="supprimer_artiste")
      */
-    public function supprimerArtiste(Artist $artist){
+    public function supprimerArtiste(Artist $artist, $id, ArtistRepository $ar){
 
+        $artist = $ar->find($id);
+        $nom = $artist->getName(); // utilise le getter pour recuperer
         $em = $this->getDoctrine()->getManager();
+        // dd($em);
         $em->remove($artist);
         $em->flush();
-
+        $this->addFlash('success', "L'artiste \"$nom\" a bien été supprimé!");
+     
+        
         return $this->redirectToRoute("artist");
+
     }
+
+    /**
+     * @Route("/artist/new", name="artist_add")
+     */
+    public function new(Request $request, EntityManager $em)
+    {
+        $nvArtiste = new Artist;
+        $formArtiste = $this->createForm(ArtistType::class, $nvArtiste); // il fait appel à la classe ArtistType créer par le form validator
+        //ne pas oublier de mettre en paramètre l'instance $nvArtist
+        $formArtiste->handleRequest($request);
+        
+        if($formArtiste->isSubmitted() && $formArtiste->isValid()){
+
+            // $data = $formArtiste->getData();
+
+            // dd($data->get('name'));
+            // $nvArtiste->setName($data['name']);
+            // $nvArtiste->setDescription($data['description']);
+            $em->persist($nvArtiste);
+            $em->flush();
+
+            return $this->redirectToRoute("artist");
+        }
+
+        return $this->render("artist/form.html.twig", 
+                    ["form" => $formArtiste->createView() ]);
+
+    }
+
+ 
+
+    /**
+     * @Route("/artist/single/{id}", name="single", requirements={"id"="\d+"})
+     * requirements : id doit être composé d'un ou plusieurs chiffres
+     */
+    public function single($id, ArtistRepository $ar)
+    {
+        $artist = $ar->find($id);
+        // $records = $rec->findRecord(6);
+        if (!empty($artist)){
+            return $this->render('artist/single.html.twig', ["artiste" => $artist]);
+        }
+        return $this->redirectToRoute('artist');
+    }
+
+    /**
+     * @Route("/artist/modifier/{id}", name="modifier_artist")
+     */
+    public function modifier_artiste(EntityManager $em, Request $request, $id, ArtistRepository $ar){
+        
+        $artist = $ar->find($id);
+
+        $formArtist = $this->createForm(ArtistType::class, $artist);
+        $formArtist->handleRequest($request);
+
+        if($formArtist->isSubmitted() && $formArtist->isValid()){
+            // plus besoin de persister pour la modification
+            $em->flush();
+
+            return $this->redirectToRoute("artist");
+        }
+        return $this->render("artist/form.html.twig", 
+        ["form" => $formArtist->createView() , 'titre'=> 'Edition Artiste', 'bouton'=>'Modifier']);
+
+    }
+
+
+
 
 
 

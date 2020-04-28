@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1 class="display-4 text-center">Fiche artiste</h1>
+<div class="alert alert-secondary">
+   <h2 class="">Nom: {{ artiste.name }}</h2> 
+   <p class="">Description: {{ artiste.description }}</p> 
+   {# <h2 class="">Identifiant : {{ artiste.id }}</h2>  #}
+</div>
+
+<table class="table text-center table-bordered" >
+        <thead class="thead-dark text-uppercase">
+            <tr>
+                <th scope="col" style="width:5%;">ID</th>
+                <th scope="col">Titre</th>
+                <th scope="col" style="width:40%;">description</th>
+                <th scope="col" style="width:10%;">Date</th>
+                <th scope="col" style="width:8%;">Modifier</th>
+            </tr>
+        </thead>
+        <tbody>
+
+         {% for record in artiste.records %}
+            <tr>
+                <td> {{ record.id }} </td>
+                <td class="font-weight-bold"> {{ record.title }} </td>
+                <td> {{ record.description }} </td>
+                <td> {{ record.releasedAt | date('Y') }} </td>
+                <td> <a class="text-danger" href="{{ path('modifier', {'id':record.id}) }}"><i class="fa fa-edit"></i></a> </td>
+            </tr>
+        {% endfor %} 
+        </tbody>
+    </table>
+        <a href="{{ path('artist') }}" class="btn btn-primary mt-1">Retour</a>
+
+   
+    
+
+{% endblock %}
