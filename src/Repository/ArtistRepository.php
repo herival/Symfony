@@ -44,7 +44,7 @@ class ArtistRepository extends ServiceEntityRepository
     {
         // SELECT a.* FROM artist WHERE name = "% . $recherche . %"
         return $this->createQueryBuilder('a')
-            ->orderBy('a.id', 'DESC')
+            ->orderBy('RAND()')
             ->setMaxResults(9)
             ->getQuery()
             ->getResult()

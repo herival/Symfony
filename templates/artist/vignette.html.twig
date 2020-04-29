@@ -1,7 +1,16 @@
-<div class="card" style="width: 18rem;">
+<!-- <div class="card" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title">{{ artiste.name }}</h5>
         <p class="card-text">{{ artiste.description }}</p>
         <a href=" {{ path('single', {'id': artiste.id }) }}" class="card-link"><i class="fa fa-guitar"></i> En savoir plus...</a>
     </div>
-</div>  
+</div>   -->
+
+<div class="card border-dark mb-3" style="max-width: 18rem;">
+    <div class="card-header">id artiste : {{ artiste.id }}</div>
+    <div class="card-body">
+      <h5 class="card-title">{{ artiste.name }}</h5>
+      <p class="card-text">{{ artiste.description }}.</p>
+      <a href=" {{ path('single', {'id': artiste.id }) }}" class="card-link"><i class="fa fa-guitar"></i> En savoir plus...</a>
+    </div>
+  </div>

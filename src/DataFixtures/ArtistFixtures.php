@@ -13,7 +13,7 @@ class ArtistFixtures extends BaseFixture //dans le même namespace, pas besoin d
                         //nombre,      , function annonime
         $this->createMany(50, "artist", function($num){
             $artiste = new Artist; 
-            $nom = $this->faker->randomElement(["DJ", "MC", "Lil", ""]);
+            $nom = $this->faker->randomElement(["DJ ", "MC ", "Lil ", ""]);
             $nom .= $this->faker->firstName . " ";
             $nom .=$this->faker->randomElement([
                 $this->faker->realText(10),

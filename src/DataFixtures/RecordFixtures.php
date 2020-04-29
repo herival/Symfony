@@ -14,7 +14,7 @@ class RecordFixtures extends BaseFixture implements DependentFixtureInterface
     {
         $this->createMany(100, "record", function($num){
             $record = (new Record)->setTitle($this->faker->domainWord)
-                                  ->setDescription($this->faker->realText(20))
+                                  ->setDescription($this->faker->realText(40))
                                   ->setReleasedAt($this->faker->dateTimeBetween($startDate =  '-30 years', $endDate = 'now'))
                                   ->setArtist($this->getRandomReference("artist"))
                                                 // va chercher dans les fixtures artiste crées
