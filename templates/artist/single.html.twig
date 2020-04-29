@@ -15,6 +15,7 @@
                 <th scope="col">Titre</th>
                 <th scope="col" style="width:40%;">description</th>
                 <th scope="col" style="width:10%;">Date</th>
+                <th scope="col" style="width:10%;">Voir</th>
                 <th scope="col" style="width:8%;">Modifier</th>
             </tr>
         </thead>
@@ -26,7 +27,8 @@
                 <td class="font-weight-bold"> {{ record.title }} </td>
                 <td> {{ record.description }} </td>
                 <td> {{ record.releasedAt | date('Y') }} </td>
-                <td> <a class="text-danger" href="{{ path('modifier', {'id':record.id}) }}"><i class="fa fa-edit"></i></a> </td>
+                <td> <a class="text-primary" href="{{ path('record_single', {'id':record.id}) }}"><i class="fas fa-record-vinyl"></i></a> </td>
+                <td> <a class="text-primary" href="{{ path('modifier', {'id':record.id}) }}"><i class="fa fa-edit"></i></a> </td>
             </tr>
         {% endfor %} 
         </tbody>

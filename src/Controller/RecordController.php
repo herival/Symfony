@@ -85,5 +85,20 @@ class RecordController extends AbstractController
 
     }
 
+    
+    /**
+     * @Route("/record/single/{id}", name="record_single")
+     */
+    public function record_single($id, RecordRepository $rec){
+        $record = $rec->find($id);
+        // dd($record);
+        if (!empty($record)){
+            return $this->render('record/singleRecord.html.twig', ["record" => $record]);
+        }
+
+        return $this->redirectToRoute("record");
+
+    }
+
 
 }

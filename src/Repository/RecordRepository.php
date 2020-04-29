@@ -37,16 +37,50 @@ class RecordRepository extends ServiceEntityRepository
     */
     // SELECT * FROM record WHERE artist_id IN (SELECT id FROM artist WHERE id = $value)
     
-    public function findRecord($value)
+    /**
+     * @return Record[] Returns an array of Record objects
+     */
+    
+    public function findByTitle($recherche)
     {
+        // SELECT a.* FROM artist WHERE name = "% . $recherche . %"
         return $this->createQueryBuilder('r')
-            ->andWhere('r.id = :val')
-            ->setParameter('val', $value)
+            ->andWhere('r.title LIKE :recherche') //:recherche comme dans PDO requete préparé
+            ->setParameter('recherche', "%" . $recherche . "%")
+            ->orderBy('r.title', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    
 
+    /**
+     * @return Record[] Returns an array of Record objects
+     */
+    
+    public function findByDescription($recherche)
+    {
+        // SELECT a.* FROM artist WHERE name = "% . $recherche . %"
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.description LIKE :recherche OR r.description LIKE :recherche') //:recherche comme dans PDO requete préparé
+            ->setParameter('recherche', "%" . $recherche . "%")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+     /**
+     * @return Record[] Returns an array of Record objects
+     */
+    public function findRecord()
+    {
+        // SELECT a.* FROM artist WHERE name = "% . $recherche . %"
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.releasedAt', 'DESC')
+            ->setMaxResults(9)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 }

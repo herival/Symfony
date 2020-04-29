@@ -18,6 +18,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArtistController extends AbstractController
 {
+
+
+
+
     /**
      * @Route("/artist", name="artist")
      */
@@ -93,7 +97,7 @@ class ArtistController extends AbstractController
             $em->flush();
 
             $nom = $data['name'];
-            $this->addFlash('alert', "L'artiste \"$nom\" a bien été ajouté!");
+            $this->addFlash('success', "L'artiste \"$nom\" a bien été ajouté!");
 
             return $this->redirectToRoute("artist"); 
 
@@ -118,7 +122,7 @@ class ArtistController extends AbstractController
         // dd($em);
         $em->remove($artist);
         $em->flush();
-        $this->addFlash('success', "L'artiste \"$nom\" a bien été supprimé!");
+        $this->addFlash("danger", "L'artiste \"$nom\" a bien été supprimé!"); //envoyer dans la session, accessible partout dans la page
      
         
         return $this->redirectToRoute("artist");
@@ -136,7 +140,7 @@ class ArtistController extends AbstractController
         $formArtiste->handleRequest($request);
         
         if($formArtiste->isSubmitted() && $formArtiste->isValid()){
-
+            $nom = $nvArtiste->getName();
             // $data = $formArtiste->getData();
 
             // dd($data->get('name'));
@@ -144,6 +148,7 @@ class ArtistController extends AbstractController
             // $nvArtiste->setDescription($data['description']);
             $em->persist($nvArtiste);
             $em->flush();
+            $this->addFlash("success","L'artiste \"$nom\" a bien été ajouté!");
 
             return $this->redirectToRoute("artist");
         }

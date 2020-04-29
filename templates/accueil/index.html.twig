@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h2 class="text-center"> Derniers artistes ajoutés</h2>
+        <div class="card-columns">
+            {% for artist in artistes %}
+                {% include "artist/vignette.html.twig" with { "artiste" : artist} %} 
+                                                            {# renomme la variable reçu artiste en artist #}
+            {% endfor %}
+        </div>
+
+    <h2 class="text-center">Albums récents</h2>
+        <div class="card-columns">
+        
+            {% for album in albums %}
+                {% include "record/vignette.html.twig" with { "description" : album} %}
+                                                            {# renomme la variable reçu description en album #}
+
+                
+            {% endfor %}
+
+        </div>
+
+{% endblock %}

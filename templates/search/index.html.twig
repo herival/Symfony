@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block body %}
+    <h1 class="display-4 text-center">Resultats de la recherche : {{ recherche|length + description|length }}</h1>
+    <div class="row">
+        <div class="col-12">
+        <h2>Artistes</h2>
+        <div class="card-columns">
+            {% for artiste in recherche %}
+                
+                {% include "artist/vignette.html.twig" %}
+
+            {% endfor %}
+        </div>
+        {% if recherche|length > 0 %}
+            <h4 class="alert alert-secondary">Nombre de resultats (limité à 10): {{ recherche|length }} {{ recherche|length > 2 ?  "artistes" : "artiste" }}  </h3>
+        {% else %}
+
+         <h4 class="alert alert-danger">Aucun resultat pour votre recherche</h3>
+        
+        {% endif %}
+        </div>
+
+        {# album  #}
+
+        <div class="col-12">
+        <h2>Resultat recherche par album</h2>
+        <div class="card-columns">
+
+            {% for description in description %}
+                
+                {% include "record/vignette.html.twig" %}
+
+            {% endfor %}
+        
+        
+        </div>
+        {% if description|length > 0 %}
+
+            <h4 class="alert alert-secondary">Nombre de resultats: {{ description|length }} {{ description|length > 2 ?  "Albums" : "Album" }} </h3>
+        {% else %}
+
+         <h4 class="alert alert-danger">Aucun resultat pour votre recherche</h3>
+        
+        {% endif %}
+        </div>
+        </div>
+
+
+
+    </div>
+{% endblock %}

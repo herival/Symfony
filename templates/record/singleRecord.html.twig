@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1 class="display-4 text-center">Fiche Album</h1>
+<div class="alert alert-secondary">
+   <h2 class="">Titre: {{ record.title }}</h2> 
+   <h2 class="">Auteur: <a href="{{ path('single', {'id': record.artist.id }) }}">{{ record.artist.name }}</a></h2> 
+   <p class="">Description: {{ record.description }}</p> 
+</div>
+
+{% endblock %}

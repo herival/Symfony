@@ -1,0 +1,8 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">{{ description.title }}</h5>
+        <p class="card-text">{{ description.description }}</p>
+        <p class="card-text">{{ description.releasedAt | date('Y') }}</p>
+        <a href=" {{ path('record_single', {'id': description.id }) }}" class="card-link"><i class="fas fa-record-vinyl"></i> En savoir plus...</a>
+    </div>
+</div> 

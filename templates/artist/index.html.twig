@@ -4,16 +4,18 @@
 
 {% block body %}
     <h1 class="display-4 text-center" suppr >Liste des Artistes</h1>
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-danger text-center">
-            {{ message }}
+    {# pour accéder aux messages flash, je peux utiliser la variable array : app.flashes
+    La variable objet app accessible dans les templates twig, permet d'acceder à des informations
+    liés au projet #}
+    {% for type, messages in app.flashes %}
+    {# equivalent php : foreach($app->flashes as thpe => message) #}
+        <div class="alert alert-{{ type }} text-center">
+            {% for message in messages %}
+                {{ message | raw }}
+            {% endfor %}
         </div>
     {% endfor %}
-    {% for message in app.flashes('alert') %}
-        <div class="alert alert-success text-center">
-            {{ message }}
-        </div>
-    {% endfor %}
+
 
     <a class="btn btn-info mb-1"  href="{{ path('artist_nouveau') }}" ><i class="fa fa-plus"></i>  Ajouter artiste</a>
     <table class="table text-center table-bordered" >

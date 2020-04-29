@@ -19,6 +19,41 @@ class ArtistRepository extends ServiceEntityRepository
         parent::__construct($registry, Artist::class);
     }
 
+    /**
+     * @return Artist[] Returns an array of Artist objects
+     */
+    
+    public function findByName($recherche)
+    {
+        // SELECT a.* FROM artist WHERE name = "% . $recherche . %"
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.name LIKE :recherche') //:recherche comme dans PDO requete préparé
+            ->setParameter('recherche', "%" . $recherche . "%")
+            ->orderBy('a.name', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    /**
+     * @return Artist[] Returns an array of Artist objects
+     */
+    
+
+    public function findArtist()
+    {
+        // SELECT a.* FROM artist WHERE name = "% . $recherche . %"
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.id', 'DESC')
+            ->setMaxResults(9)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+
+
+
     // /**
     //  * @return Artist[] Returns an array of Artist objects
     //  */

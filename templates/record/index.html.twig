@@ -13,6 +13,7 @@
                 <th scope="col">Titre</th>
                 <th scope="col" style="width:40%;">description</th>
                 <th scope="col" style="width:10%;">Date</th>
+                <th scope="col" style="width:8%;">Voir</th>
                 <th scope="col" style="width:8%;">Modifier</th>
                 <th scope="col" style="width:8%;">Supprimer</th>
             </tr>
@@ -27,7 +28,8 @@
                 <td class="font-weight-bold"> {{ record.title }} </td>
                 <td> {{ record.description }} </td>
                 <td> {{ record.releasedAt | date('Y') }} </td>
-                <td> <a class="text-danger" href="/record/modifier/{{record.id}}"><i class="fa fa-edit"></i></a> </td>
+                <td> <a class="text-primary" href="/record/single/{{record.id}}"><i class="fa fa-eye"></i></a> </td>
+                <td> <a class="text-primary" href="/record/modifier/{{record.id}}"><i class="fa fa-edit"></i></a> </td>
                 <td> <a class="text-danger"  onclick="return confirm('Voulez-vous supprimer cet album?')" href="/record/supprimer/{{record.id}}"><i class="fa fa-trash"></i></a> </td>
             </tr>
         {% endfor %} 

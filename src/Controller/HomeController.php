@@ -3,11 +3,28 @@
 namespace App\Controller;
 
 use stdClass;
+use App\Repository\ArtistRepository;
+use App\Repository\RecordRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+
+    /**
+     * @Route("/", name="accueil")
+     */
+    public function home(ArtistRepository $ar, RecordRepository $rec)
+    {
+        $artistes = $ar->findArtist();
+        $albums = $rec->findRecord();
+        /*
+            - afficher les 10 premier artistes
+            - afficher les 10 derniers
+        */
+
+        return $this->render('accueil/index.html.twig' , compact("artistes", "albums"));
+    }
     /**
      * @Route("/", name="home")
      */
