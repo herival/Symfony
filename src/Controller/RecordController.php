@@ -87,7 +87,7 @@ class RecordController extends AbstractController
 
     
     /**
-     * @Route("/record/single/{id}", name="record_single")
+     * @Route("single/record/{id}", name="record_single")
      */
     public function record_single($id, RecordRepository $rec){
         $record = $rec->find($id);

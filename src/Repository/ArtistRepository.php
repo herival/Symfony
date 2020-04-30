@@ -42,7 +42,7 @@ class ArtistRepository extends ServiceEntityRepository
 
     public function findArtist()
     {
-        // SELECT a.* FROM artist WHERE name = "% . $recherche . %"
+        // SELECT a.* FROM artist ORDER BY RAND()
         return $this->createQueryBuilder('a')
             ->orderBy('RAND()')
             ->setMaxResults(9)

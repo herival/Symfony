@@ -2,12 +2,26 @@
 
 {% block body %}
     <h2 class="text-center"> Derniers artistes ajoutés</h2>
+    
         <div class="card-columns">
             {% for artist in artistes %}
                 {% include "artist/vignette.html.twig" with { "artiste" : artist} %} 
                                                             {# renomme la variable reçu artiste en artist #}
             {% endfor %}
+
+            {# on peut aussi filtrer dans twig avec une requette findAll#}
+            {# {% for i in 0..9 %}
+                {% include "artist/vignette.html.twig" with { "artiste" : artist[i]} %} 
+            {% endfor %} #}
+
+
+            {# affiche aleatoirement dans twig avec random  avec une requette findAll#}
+            {# {% for i in 0..9 %}
+                {% include "artist/vignette.html.twig" with { "artiste" : random(artist)} %} 
+            {% endfor %} #}
         </div>
+
+
 
     <h2 class="text-center">Albums récents</h2>
         <div class="card-columns">

@@ -16,7 +16,9 @@
                 <th scope="col" style="width:40%;">description</th>
                 <th scope="col" style="width:10%;">Date</th>
                 <th scope="col" style="width:10%;">Voir</th>
+                {% if is_granted("ROLE_ADMIN") %}
                 <th scope="col" style="width:8%;">Modifier</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -28,12 +30,18 @@
                 <td> {{ record.description }} </td>
                 <td> {{ record.releasedAt | date('Y') }} </td>
                 <td> <a class="text-primary" href="{{ path('record_single', {'id':record.id}) }}"><i class="fas fa-record-vinyl"></i></a> </td>
+                {% if is_granted("ROLE_ADMIN") %}
                 <td> <a class="text-primary" href="{{ path('modifier', {'id':record.id}) }}"><i class="fa fa-edit"></i></a> </td>
+                {% endif %}
             </tr>
         {% endfor %} 
         </tbody>
     </table>
+    {% if is_granted("ROLE_ADMIN") %}
         <a href="{{ path('artist') }}" class="btn btn-primary mt-1">Retour</a>
+    {% else %}
+        <a href="{{ path('home') }}" class="btn btn-primary mt-1">Retour</a>        
+    {% endif %}
 
    
     

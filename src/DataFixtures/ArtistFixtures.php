@@ -6,6 +6,7 @@ use App\Entity\Artist;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
+
 class ArtistFixtures extends BaseFixture //dans le même namespace, pas besoin d'importer la classe
 {
     public function loadData(ObjectManager $manager)
@@ -19,7 +20,7 @@ class ArtistFixtures extends BaseFixture //dans le même namespace, pas besoin d
                 $this->faker->realText(10),
                 "aka" . $this->faker->domainWord,
                 "& The " . $this->faker->lastName, 
-            ]);
+                    ]);
 
             //setName() renvoie le meme objet donc on peut enchainer les set
             $artiste->setName($nom)

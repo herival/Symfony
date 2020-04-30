@@ -14,16 +14,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
+//Pour pouvoir utiliser l'annotation IsGranted
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ArtistController extends AbstractController
 {
 
-
-
-
     /**
      * @Route("/artist", name="artist")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(ArtistRepository $ar)
     {
@@ -161,8 +160,9 @@ class ArtistController extends AbstractController
  
 
     /**
-     * @Route("/artist/single/{id}", name="single", requirements={"id"="\d+"})
+     * @Route("/fiche/artist/single/{id}", name="single", requirements={"id"="\d+"})
      * requirements : id doit être composé d'un ou plusieurs chiffres
+     * @IsGranted("ROLE_USER")
      */
     public function single($id, ArtistRepository $ar)
     {

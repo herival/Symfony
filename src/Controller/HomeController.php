@@ -23,6 +23,10 @@ class HomeController extends AbstractController
             - afficher les 10 derniers
         */
 
+        // recuperer l'utilisateur connecté 
+        // $user = $this->getUser();
+        // dd($user);
+
         return $this->render('accueil/index.html.twig' , compact("artistes", "albums"));
     }
     /**
