@@ -28,9 +28,9 @@
                 <td class="font-weight-bold"> {{ record.title }} </td>
                 <td> {{ record.description }} </td>
                 <td> {{ record.releasedAt | date('Y') }} </td>
-                <td> <a class="text-primary" href="/record/single/{{record.id}}"><i class="fa fa-eye"></i></a> </td>
-                <td> <a class="text-primary" href="/record/modifier/{{record.id}}"><i class="fa fa-edit"></i></a> </td>
-                <td> <a class="text-danger"  onclick="return confirm('Voulez-vous supprimer cet album?')" href="/record/supprimer/{{record.id}}"><i class="fa fa-trash"></i></a> </td>
+                <td> <a class="text-primary" href="{{ path('record_single', {'id': record.id}) }}"><i class="fa fa-eye"></i></a> </td>
+                <td> <a class="text-primary" href="{{ path('modifier', {'id': record.id}) }}"><i class="fa fa-edit"></i></a> </td>
+                <td> <a class="text-danger"  onclick="return confirm('Voulez-vous supprimer cet album?')" href="{{ path('supprimer_record', {'id': record.id}) }}"><i class="fa fa-trash"></i></a> </td>
             </tr>
         {% endfor %} 
         </tbody>

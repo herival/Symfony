@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Record;
 use App\Form\RecordType;
 use App\Repository\RecordRepository;
+use App\Repository\RankingRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
@@ -89,11 +90,13 @@ class RecordController extends AbstractController
     /**
      * @Route("single/record/{id}", name="record_single")
      */
-    public function record_single($id, RecordRepository $rec){
+    public function record_single($id, RecordRepository $rec, RankingRepository $rank){
         $record = $rec->find($id);
+        $ranking = $rank->findByRecord($id);
+        // dd($ranking);
         // dd($record);
         if (!empty($record)){
-            return $this->render('record/singleRecord.html.twig', ["record" => $record]);
+            return $this->render('record/singleRecord.html.twig', ["record" => $record, "ranking"=>$ranking]);
         }
 
         return $this->redirectToRoute("record");

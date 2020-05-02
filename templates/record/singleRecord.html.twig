@@ -3,9 +3,21 @@
 {% block body %}
     <h1 class="display-4 text-center">Fiche Album</h1>
 <div class="alert alert-secondary">
-   <h2 class="">Titre: {{ record.title }}</h2> 
-   <h2 class="">Auteur: <a href="{{ path('single', {'id': record.artist.id }) }}">{{ record.artist.name }}</a></h2> 
+   <h2 class="">Titre: {{ record.title | capitalize}}</h2> 
+   <h2 class="">Auteur: <a href="{{ path('single', {'id': record.artist.id }) }}">{{ record.artist.name | title }}</a></h2> 
    <p class="">Description: {{ record.description }}</p> 
 </div>
+    <a href="{{ path('new_ranking', {"id": record.id }) }}" class="btn btn-info">Laisser un commentaire</a>
 
+    <br>
+    <h5>Les commentaires </h5>
+{% for ranking in ranking %}
+    <p>Laissé par : {{ ranking.user.email }}</p>
+    <p>Message : {{ ranking.comment }} </p>
+    
+{% endfor %}
+
+<pre>
+    {{ dump(ranking) }}
+</pre>
 {% endblock %}

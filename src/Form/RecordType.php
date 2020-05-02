@@ -18,7 +18,7 @@ class RecordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("artist", Entitytype::class, [ "class" => Artist::class, "choice_label" => "name" , 'attr' => ['class'=> "form-control"]]) //la classe ici s'appelle Artist mais pa artist_id
+            ->add("artist", EntityType::class, [ "class" => Artist::class, "choice_label" => "name" , 'attr' => ['class'=> "form-control"]]) //la classe ici s'appelle Artist mais pa artist_id
             ->add('title', TextType::class, ["label"=>"Titre",  'attr' => ['class'=> "form-control"]])
             ->add('description', TextareaType::class,  ['attr' => ['class'=> "form-control"]])
             ->add('releasedAt', DateType::class, ["widget" => "single_text",
