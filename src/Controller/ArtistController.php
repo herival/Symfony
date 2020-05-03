@@ -162,7 +162,7 @@ class ArtistController extends AbstractController
     /**
      * @Route("/fiche/artist/single/{id}", name="single", requirements={"id"="\d+"})
      * requirements : id doit être composé d'un ou plusieurs chiffres
-     * @IsGranted("ROLE_USER")
+     * 
      */
     public function single($id, ArtistRepository $ar)
     {

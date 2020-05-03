@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class RankingType extends AbstractType
@@ -17,7 +18,7 @@ class RankingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('note', null)
+            ->add('note', ChoiceType::class, [ 'choices' => [0, 1 , 2, 3, 4, 5, 6, 7, 8, 9] ])
             ->add('comment', null)
             // ->add('record', EntityType::class, [ "class" => Record::class, "choice_label" => "id" , 'attr' => ['class'=> "form-control"]])
             // ->add('user', TextType::class)

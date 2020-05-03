@@ -32,6 +32,22 @@ class RankingRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * @return Ranking[] Returns an array of Ranking objects
+     */
+    
+    public function findByUser($user, $record)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.user = :ranking')
+            ->andWhere('r.record = :ranking_record')
+            ->setParameter('ranking', $user)
+            ->setParameter('ranking_record', $record)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 
     // /**

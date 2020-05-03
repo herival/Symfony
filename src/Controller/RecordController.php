@@ -93,10 +93,20 @@ class RecordController extends AbstractController
     public function record_single($id, RecordRepository $rec, RankingRepository $rank){
         $record = $rec->find($id);
         $ranking = $rank->findByRecord($id);
+        $user = $this->getUser();
+        // dd($user->getId());
+        if ($user != null){
+            $idUserConnecte = $user->getId();
+            $ranking_user =  $rank->findByUser($idUserConnecte, $id);
+        } else {
+            $ranking_user = 0;  // renvoi juste une valeur pour eviter l'erreur dans le return
+        }
+        // dd($ranking_user);
+
         // dd($ranking);
         // dd($record);
         if (!empty($record)){
-            return $this->render('record/singleRecord.html.twig', ["record" => $record, "ranking"=>$ranking]);
+            return $this->render('record/singleRecord.html.twig', ["record" => $record, "ranking"=>$ranking, "ranking_user"=> $ranking_user]);
         }
 
         return $this->redirectToRoute("record");

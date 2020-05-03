@@ -47,7 +47,7 @@ class RankingController extends AbstractController
             $em->flush();
 
 
-            return $this->redirectToRoute("record_single", array('id' => $id));
+            return $this->redirectToRoute("record_single", ['id' => $id]);
             // return $this->redirect("../../single/record/$id");
         }
         

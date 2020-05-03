@@ -2,22 +2,38 @@
 
 {% block body %}
     <h1 class="display-4 text-center">Fiche Album</h1>
-<div class="alert alert-secondary">
-   <h2 class="">Titre: {{ record.title | capitalize}}</h2> 
+<div class="alert alert-secondary" style="min-height: 30vh;">
+   <h2 class="">Titre: {{ record.title | capitalize}} </h2>
+    <h3> Année : <span class="text-danger">{{ record.releasedAt | date('Y') }} </span> </h3> 
    <h2 class="">Auteur: <a href="{{ path('single', {'id': record.artist.id }) }}">{{ record.artist.name | title }}</a></h2> 
    <p class="">Description: {{ record.description }}</p> 
+   <img src="/img/vinil.png" alt="Vinyl" id="vinyl" style="position:absolute; width:20%; right:5vw; top:2vh;">
 </div>
+
+    {% if ranking_user | length < 1  %}
     <a href="{{ path('new_ranking', {"id": record.id }) }}" class="btn btn-info">Laisser un commentaire</a>
+    {% endif %}
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+    {% else %}
+    <a href="{{ path('app_login') }}" class="btn btn-info">Connecter-vous</a>
+    {% endif %}
+
 
     <br>
     <h5>Les commentaires </h5>
-{% for ranking in ranking %}
-    <p>Laissé par : {{ ranking.user.email }}</p>
+ {% for ranking in ranking %} 
+ <div class="alert alert-light">
+    <p>Laissé par : <span class="badge badge-secondary">{{ ranking.user.email }}</span> Note 
+    {% if ranking.note > 7  %}
+    <span class="badge badge-success">{{ ranking.note }}/10</span></p>
+    {% elseif ranking.note > 5  %}
+    <span class="badge badge-warning">{{ ranking.note }}/10</span></p>
+    {% else %}
+    <span class="badge badge-danger">{{ ranking.note }}/10</span></p>
+    {% endif %}    
     <p>Message : {{ ranking.comment }} </p>
-    
+</div>
 {% endfor %}
 
-<pre>
-    {{ dump(ranking) }}
-</pre>
+
 {% endblock %}
